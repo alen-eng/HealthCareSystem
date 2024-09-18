@@ -29,7 +29,6 @@ export enum FormFieldType {
 
   interface CustomProps {
     control: Control<any>;
-    fieldType: FormFieldType;
     name: string;
     label? : string;
     placeholder? : string;
@@ -39,8 +38,8 @@ export enum FormFieldType {
     dateFormat? : string;
     showTimeSelect? : boolean;
     children? : React.ReactNode;
-    renderSkeleton? : (field: any) =>
-        React.ReactNode;
+    renderSkeleton? : (field: any) => React.ReactNode;
+    fieldType: FormFieldType;
 }
 
 const RenderField = ({ field, props } : {field: any; props : CustomProps}) => {
@@ -68,7 +67,7 @@ const RenderField = ({ field, props } : {field: any; props : CustomProps}) => {
             />
          </FormControl>
       </div>
-    )
+    );
     case FormFieldType.PHONE_INPUT :
       return (
         <FormControl>
@@ -82,7 +81,7 @@ const RenderField = ({ field, props } : {field: any; props : CustomProps}) => {
           className="input-phone"
            />
         </FormControl>
-      )
+      );
 
       case FormFieldType.DATE_PICKER : 
         return (
@@ -106,12 +105,12 @@ const RenderField = ({ field, props } : {field: any; props : CustomProps}) => {
              />
            </FormControl>
           </div>
-        )
-      case FormFieldType.SKELETON :
-        return renderSkeleton ? renderSkeleton (field) : null
+        );
+        case FormFieldType.SKELETON:
+        return props.renderSkeleton ? props.renderSkeleton(field) : null;
         
     default:
-    break;
+     return null
  }
 }
 
